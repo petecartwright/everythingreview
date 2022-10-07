@@ -11,8 +11,8 @@ datasource db {
 }
 
 model User {
-  id    String  @id @default(uuid())
-  email String?
+  id    String @id @default(uuid())
+  email String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -21,7 +21,7 @@ model User {
   places   Place[]
   items    Item[]
 
-  username String @unique
+  username String? @unique
 }
 
 model Password {
@@ -36,22 +36,21 @@ model Place {
   slug String @unique
   name String @unique
 
-  items Item[]
-
-  notes String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  notes      String?
+  orderAgain String?
 
   address    String?
   city       String?
   state      String?
   websiteUrl String?
 
+  items Item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String
-
-  orderAgain String?
 }
 
 model Item {
