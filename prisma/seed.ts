@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import slugify from "slugify";
 
 const prisma = new PrismaClient();
 
@@ -24,19 +25,21 @@ async function seed() {
     },
   });
 
-  await prisma.note.create({
+  await prisma.place.create({
     data: {
-      title: "My first note",
-      body: "Hello, world!",
-      userId: user.id,
+      name: "My first place",
+      slug: slugify("My first place"),
+      notes: "Hello, world!",
+      creatorId: user.id,
     },
   });
 
-  await prisma.note.create({
+  await prisma.place.create({
     data: {
-      title: "My second note",
-      body: "Hello, world!",
-      userId: user.id,
+      name: "My second place",
+      slug: slugify("My second place"),
+      notes: "Hello, world!",
+      creatorId: user.id,
     },
   });
 
